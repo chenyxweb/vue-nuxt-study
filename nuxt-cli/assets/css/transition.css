@@ -1,0 +1,22 @@
+/* 全局路由动画 fade动画 */
+.page-enter-active,
+.page-leave-active {
+  transition: opacity 0.3s;
+}
+/* 进入前,离开后 */
+.page-enter,
+.page-leave-to{
+  opacity: 0;
+}
+
+
+/* 单个路由动画 入场出场动画 */
+.move-enter-active,
+.move-leave-active{
+  transition: all 0.5s ease;
+}
+/* 进入前,离开后 */
+.move-enter,
+.move-leave-to{
+  transform: translateX(-1920px);
+}
