@@ -15,6 +15,7 @@
     "@nuxtjs/proxy": "^2.0.1",
     "cookie-universal-nuxt": "^2.1.4",
     "core-js": "^3.6.5",
+    "element-ui": "^2.14.1",
     "nuxt": "^2.14.6"
   },
   "devDependencies": {

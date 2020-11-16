@@ -36,14 +36,21 @@ export default {
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
   // 全局样式
-  css: ['./assets/css/transition.css'],
+  css: [
+    './assets/css/transition.css', // 添加transition样式
+    'element-ui/lib/theme-chalk/index.css' // 添加element-ui的样式
+  ],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
     '@/plugins/router.js',
     {
       src: '@/plugins/axios.js',
-      ssr: true // 服务端 ???
+      ssr: true
+    },
+    {
+      src: '@/plugins/element-ui.js',
+      ssr: true // (默认为 true) 如果值为 false，该文件只会在客户端被打包引入。
     }
   ],
 
@@ -76,7 +83,9 @@ export default {
   },
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
-  build: {},
+  build: {
+    // transpile: ['/^element-ui/']
+  },
 
   // loading组件
   loading: '~/components/loading.vue'

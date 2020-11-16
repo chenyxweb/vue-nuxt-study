@@ -841,4 +841,47 @@ export const actions = {
 
 ## 11 element-ui使用
 
-> 
+```
+// 1 安装
+npm i element-ui
+```
+
+```js
+// 2 配置plugins/element-ui.js
+
+import Vue from 'vue'
+import ElementUI from 'element-ui'
+
+// 全量引入
+Vue.use(ElementUI)
+
+// 按需引入
+// import { Button } from "element-ui";
+// Vue.use(Button)
+```
+
+```js
+// 3 配置 nuxt.config.js
+
+  css: [
+    './assets/css/transition.css', // 添加transition样式
+    'element-ui/lib/theme-chalk/index.css' // 添加element-ui的样式
+  ],
+
+  plugins: [
+    '@/plugins/router.js',
+    {
+      src: '@/plugins/axios.js',
+      ssr: true
+    },
+    {
+      src: '@/plugins/element-ui.js',
+      ssr: true // (默认为 true) 如果值为 false，该文件只会在客户端被打包引入。
+    }
+  ],
+      
+  build: {
+    // transpile: ['/^element-ui/'] // 单独提取出来
+  },
+```
+

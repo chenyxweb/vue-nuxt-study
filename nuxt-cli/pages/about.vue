@@ -21,6 +21,11 @@
           {{ item.name }} -- {{ item.done?'已完成':'未完成' }}
         </li>
       </ul>
+
+      <h3>element-ui演示</h3>
+      <el-button type="primary">
+        按钮
+      </el-button>
     </div>
   </div>
 </template>
