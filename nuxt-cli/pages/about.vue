@@ -59,7 +59,8 @@ export default {
   data() {
     return {
       age: 18,
-      input: ''
+      input: '',
+      title: 'about页面'
     }
   },
 
@@ -90,6 +91,20 @@ export default {
 
   mounted() {
     console.log('钩子mounted')
+  },
+
+  // 页面meta信息
+  head() {
+    return {
+      title: this.title,
+      meta: [
+        {
+          hid: 'description',
+          name: 'desc',
+          content: 'about页面的meta信息'
+        }
+      ]
+    }
   },
 
   // 方式一: 将中间件定义在middleware文件夹内

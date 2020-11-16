@@ -993,3 +993,54 @@ export default {
   ],
 ```
 
+## 13 meta使用
+
+### [全局meta](https://www.nuxtjs.cn/api/configuration-head)
+
+```js
+// nuxt.config.js
+
+module.exports = {
+  head: {
+    titleTemplate: '%s - Nuxt.js',
+    meta: [
+      { charset: 'utf-8' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { hid: 'description', name: 'description', content: 'Meta description' }
+    ]
+  }
+}
+```
+
+### [页面meta](https://www.nuxtjs.cn/api/pages-head)
+
+```vue
+<template>
+  <h1>{{ title }}</h1>
+</template>
+
+<script>
+  export default {
+    data() {
+      return {
+        title: 'Hello World!'
+      }
+    },
+    head() {
+      return {
+        title: this.title, // 可以通过this访问页面中的数据
+        meta: [
+          {
+            hid: 'description', // 和全局meta设置相同的hid, 可以覆盖全局设置的meta, hid为description的meta只显示一个
+            name: 'description',
+            content: 'My custom description'
+          }
+        ]
+      }
+    }
+  }
+</script>
+```
+
+
+
