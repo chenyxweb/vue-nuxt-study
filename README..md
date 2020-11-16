@@ -1,4 +1,4 @@
-# nuxt学习
+# 全局nuxt学习
 
 ## 1 客户端渲染(CSR)和服务端渲染(SSR)
 
@@ -883,5 +883,113 @@ Vue.use(ElementUI)
   build: {
     // transpile: ['/^element-ui/'] // 单独提取出来
   },
+```
+
+## 12 全局定义方法, 过滤器, 指令, 样式
+
+> plugins文件夹的功能类似于 vue-cli 中的main.js
+
+### 全局方法, 过滤器, 指令
+
+```js
+// plugins/mixins.js
+
+import Vue from 'vue'
+import * as filters from '@/assets/js/filters'
+import focus from '@/assets/js/directives/focus'
+
+// 1 全局方法
+const fn = () => console.log('哈哈哈')
+Vue.prototype.$fn = fn // 有this的环境才可以访问这个函数
+
+// 2 全局过滤器注册
+Object.keys(filters).forEach((item) => {
+  Vue.filter(item, filters[item])
+})
+
+// 3 自定义指令注册
+Vue.directive('focus', focus)
+
+```
+
+```js
+// assets/js/filters.js
+
+// 全局过滤器定义
+
+// 日期补零
+export const fillZero = (d) => {
+  return d < 10 ? '0' + d : '' + d
+}
+
+// 格式化日期
+export const formatDate = (timeStamp) => {
+  const d = new Date(timeStamp)
+
+  const year = d.getFullYear()
+  const month = d.getMonth() + 1
+  const date = d.getDate()
+  const hour = d.getHours()
+  const min = d.getMinutes()
+  const sec = d.getSeconds()
+
+  return `${year}-${fillZero(month)}-${fillZero(date)} ${fillZero(hour)}:${fillZero(min)}:${fillZero(sec)}`
+}
+
+```
+
+```js
+// assets/js/directives/focus.js
+
+// 自定义指令定义
+
+// 自动获取焦点指令
+export default {
+  // 被绑定元素插入父节点时调用 (仅保证父节点存在，但不一定已被插入文档中)。
+  inserted(el) {
+    el.focus()
+  }
+}
+
+```
+
+### 全局样式
+
+```css
+// assets/css/transition.css
+
+/* 全局路由动画 fade动画 */
+.page-enter-active,
+.page-leave-active {
+  transition: opacity 0.3s;
+}
+/* 进入前,离开后 */
+.page-enter,
+.page-leave-to{
+  opacity: 0;
+}
+
+
+/* 单个路由动画 入场出场动画 */
+.move-enter-active,
+.move-leave-active{
+  transition: all 0.5s ease;
+}
+/* 进入前,离开后 */
+.move-enter,
+.move-leave-to{
+  transform: translateX(-1920px);
+}
+
+```
+
+```js
+// nuxt.config.js
+
+  // 全局样式
+  css: [
+    './assets/css/transition.css', // 添加transition样式
+    'element-ui/lib/theme-chalk/index.css' // 添加element-ui的样式
+  ],
 ```
 

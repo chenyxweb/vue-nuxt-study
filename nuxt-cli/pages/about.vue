@@ -26,6 +26,13 @@
       <el-button type="primary">
         按钮
       </el-button>
+
+      <!-- 全局filters演示 -->
+      <div>{{ 9|fillZero }}</div>
+      <div>{{ date | formatDate }}</div>
+
+      <!-- 自定义指令演示 -->
+      <input v-focus type="text">
     </div>
   </div>
 </template>
@@ -44,7 +51,8 @@ export default {
     const res1 = await $axios.get('/data.json') // 请求static目录下的同域资源
     // const res2 = await $axios.get('/api') // 请求跨域资源
     return {
-      msg1: res1.data.msg
+      msg1: res1.data.msg,
+      date: +new Date()
     }
   },
 
@@ -73,6 +81,7 @@ export default {
 
   created() {
     console.log('钩子created')
+    this.$fn() // 全局方法测试
   },
 
   beforeMount() {

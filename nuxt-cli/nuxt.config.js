@@ -51,7 +51,9 @@ export default {
     {
       src: '@/plugins/element-ui.js',
       ssr: true // (默认为 true) 如果值为 false，该文件只会在客户端被打包引入。
-    }
+    },
+    // 全局定义的方法
+    '@/plugins/mixins.js'
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
