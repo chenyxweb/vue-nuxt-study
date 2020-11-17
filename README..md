@@ -1269,3 +1269,48 @@ export default class About extends Vue {
 
 ```
 
+### 重写vue类型接口
+
+```ts
+import Vue from 'vue'
+import { NuxtAxiosInstance } from "@nuxtjs/axios";
+
+declare module "vue/types/vue" {
+  interface Vue {
+    // 报错的添加到这里进行类型定义
+    $axios: NuxtAxiosInstance;
+  }
+}
+```
+
+### vuex中使用ts
+
+```
+// 安装
+npm i vuex-class
+```
+
+```ts
+import { Component, Vue } from 'vue-property-decorator'
+// 引入装饰器
+import { State, Getter, Action, Mutation } from 'vuex-class'
+
+export default Class Demo extends Vue {
+
+  // https://class-component.vuejs.org/guide/property-type-declaration.html#property-type-declaration
+  // Declare mapped getters and actions on type level.
+  // You may need to add `!` after the property name
+  // to avoid compilation error (definite assignment assertion).
+    
+    // ...mapState({ list: (state) => state.todos.list }),
+    @State((state) => state.todos.list) list!:object[]
+    // ...mapGetters('todos', ['doneList', 'unDoneList'])
+    @Getter('todos/doneList') doneList!:object[]
+    @Getter('todos/unDoneList') unDoneList!:object[]
+    // ...mapMutations('todos', { m_addTodo: 'addTodo' }), // 映射同步的mutations
+    @Mutation('todos/addTodo') m_addTodo!:(payload:object)=>void
+    // ...mapActions('todos', { a_addTodo: 'addTodo' }) // 映射异步的actions
+    @Action('todos/addTodo') a_addTodo!:(payload:object)=>void
+}
+```
+
