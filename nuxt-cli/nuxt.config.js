@@ -7,7 +7,10 @@ export default {
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: '全局meta信息' }
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    script: [
+      // { src: 'https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js' }
+    ]
   },
 
   // 该配置项可用于覆盖 Nuxt.js 自动生成的 vue-router 配置

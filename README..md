@@ -320,8 +320,6 @@ fetch ({store}) {
 
 ### vue生命周期钩子...
 
-
-
 ## 5 路由
 
 ### 5.1 约定式路由
@@ -643,7 +641,7 @@ module.exports = {
 
 ## 9 vuex
 
-> store文件夹下的每一个js文件就是一个模块, 将会被自动注入到vuex中
+> store文件夹下的每一个js文件就是一个模块, 将会被自动注入到vuex中, 并自动添加namespace
 
 演示
 
@@ -1064,7 +1062,7 @@ https://github.com/nuxt-community/style-resources-module/
 
 ```
 // 安装
-npm i style-resources-loader @nuxtjs/style-resources -D
+npm i @nuxtjs/style-resources -D
 ```
 
 ```scss
@@ -1115,15 +1113,159 @@ https://zh.nuxtjs.org/docs/2.x/concepts/views/#document-apphtml
 </html>
 ```
 
-## 16 nuxt中内部资源访问
+## 16 nuxt中资源访问
+
+### 内部资源
 
 ```html
 <!-- 会被打包的资源  assets目录下 -->
 <img src="@/assets/images/111.png" alt="">
+
 <!-- 不会被打包的静态资源 static目录下 -->
 <img src="/images/222.png" alt="">
 ```
 
+### 外部资源
 
+- 自定义html模板内
 
-### 访问不压缩的资源
+  ```html
+<!DOCTYPE html>
+  <html {{ HTML_ATTRS }}>
+    <head {{ HEAD_ATTRS }}>
+      {{ HEAD }}
+  
+      <!-- 自定义head -->
+  
+    </head>
+    <body {{ BODY_ATTRS }}>
+      {{ APP }}
+  	
+    <!-- 引入外部资源 -->  
+      <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    </body>
+  </html>
+  
+  ```
+
+- nuxt.config.js 内
+
+```js
+export default {
+  head: {
+    title: 'nuxt-cli',
+    meta: [
+      { charset: 'utf-8' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { hid: 'description', name: 'description', content: '全局meta信息' }
+    ],
+    // 使用link引入外部css,字体等, 使用script引入外部脚本文件等
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    script: [
+      { src: 'https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js' }
+    ]
+  },
+}
+```
+
+- 组件内
+
+```js
+export default {
+    head(){
+        return {
+            title: '标题',
+            meta: [],
+            script: [
+                {src:'https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js'}
+            ]
+        }
+    }
+}
+```
+
+注意: 
+
+- app.html和nuxt.config.js内部配置的外部资源, 全局共享.  
+- 组件内配置的外部仅当前组件可用
+- 配置在head中的外部资源会阻塞页面
+
+## 17 nuxt项目使用typescript
+
+### 新建typescript项目
+
+```bash
+md nuxt-ts
+cd nuxt-ts
+npx create-nuxt-app .
+
+选择 
+typescript
+Universal模式
+```
+
+### 在原有项目中添加
+
+```
+https://typescript.nuxtjs.org/guide/
+```
+
+### 使用class-api
+
+```
+// 安装
+npm i vue-property-decorator vue-class-component
+```
+
+```vue
+<template>
+  <div class="about">
+    <div>about</div>
+    <!-- 演示 -->
+    <div>{{ count }}</div>
+    <div>{{ dCount }}</div>
+    <el-button type="primary" @click="handleClick">
+      count++
+    </el-button>
+  </div>
+</template>
+
+<script lang="ts">
+import { Component, Vue, Watch, Prop } from 'vue-property-decorator'
+
+@Component({
+  mounted () {
+    console.log('mounted')
+  }
+})
+export default class About extends Vue {
+  // props
+  @Prop() readonly msg: string | undefined;
+
+  // data
+  count: number = 0;
+
+  // computed
+  get dCount (): number {
+    return this.count * 2
+  }
+
+  // watch
+  @Watch('count', { immediate: true })
+  countChange () {
+    console.log('count,change')
+  }
+
+  // methods
+  handleClick (e: MouseEvent) {
+    this.count++
+    console.log(e.pageX, e.pageY)
+  }
+}
+</script>
+
+<style>
+</style>
+
+```
+

@@ -139,6 +139,9 @@ export default {
           name: 'desc',
           content: 'about页面的meta信息'
         }
+      ],
+      script: [
+        { src: 'https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js' }
       ]
     }
   }
@@ -147,8 +150,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.about{
-  .scss{
+.about {
+  .scss {
     color: $gray;
   }
 }
