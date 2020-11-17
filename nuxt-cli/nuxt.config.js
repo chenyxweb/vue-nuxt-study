@@ -13,7 +13,7 @@ export default {
   // 该配置项可用于覆盖 Nuxt.js 自动生成的 vue-router 配置
   router: {
     middleware: 'auth',
-    extendRoutes (routes, resolve) {
+    extendRoutes(routes, resolve) {
       // 添加自定义路由
       const _routes = [
         {
@@ -62,7 +62,8 @@ export default {
   // Modules for dev and build (recommended) (https://go.nuxtjs.dev/config-modules)
   buildModules: [
     // https://go.nuxtjs.dev/eslint
-    '@nuxtjs/eslint-module'
+    '@nuxtjs/eslint-module',
+    '@nuxtjs/style-resources'
   ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
@@ -90,10 +91,17 @@ export default {
   },
 
   // loading组件
-  loading: '~/components/loading.vue'
+  loading: '~/components/loading.vue',
   // loading: {
   //   color: '#daa520',
   //   background: 'white'
   // }
 
+  // sass全局变量配置
+  // buildModules: ['@nuxtjs/style-resources'],
+  styleResources: {
+    scss: [
+      '@/assets/variables.scss'
+    ]
+  }
 }

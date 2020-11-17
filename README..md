@@ -332,12 +332,10 @@ fetch ({store}) {
 
 https://www.nuxtjs.cn/api/configuration-router#extendroutes
 
-nuxt.config.js   router.extendRoute
-
-
-
 ```js
-  router: {
+// nuxt.config.js   router.extendRoute
+
+router: {
     middleware: 'auth',
     extendRoutes (routes, resolve) {
       // 添加自定义路由, 也可以将所有的路由重新定义一遍, 默认会覆盖之前自动生成的路由
@@ -1000,14 +998,19 @@ export default {
 ```js
 // nuxt.config.js
 
-module.exports = {
+export default {
   head: {
-    titleTemplate: '%s - Nuxt.js',
+    title: 'my website title',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'Meta description' }
-    ]
+      {
+        hid: 'description',
+        name: 'description',
+        content: 'my website description'
+      }
+    ],
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   }
 }
 ```
@@ -1042,5 +1045,85 @@ module.exports = {
 </script>
 ```
 
+## 14 使用sass
+
+### 安装使用sass
+
+https://zh.nuxtjs.org/docs/2.x/configuration-glossary/configuration-css/
+
+```
+// 安装
+npm install node-sass sass-loader --dev
+```
+
+### 全局样式变量配置
+
+https://zh.nuxtjs.org/docs/2.x/configuration-glossary/configuration-build/#styleresources
+
+https://github.com/nuxt-community/style-resources-module/
+
+```
+// 安装
+npm i style-resources-loader @nuxtjs/style-resources -D
+```
+
+```scss
+// 定义变量
+// assets/variables.scss
+
+$gray:gray;
+```
+
+```js
+// 配置
+// nuxt.config.js
+
+  // sass全局变量配置
+  buildModules: ['@nuxtjs/style-resources'],
+  styleResources: {
+    scss: [
+      '@/assets/variables.scss'
+    ]
+  }
+```
+
+```scss
+// 使用变量
+
+color:$gray;
+```
+
+## 15 自定义html模板
+
+https://zh.nuxtjs.org/docs/2.x/concepts/views/#document-apphtml
+
+```html
+// app.html
+// 自动注入nuxt的attrs
+
+<!DOCTYPE html>
+<html {{ HTML_ATTRS }}>
+  <head {{ HEAD_ATTRS }}>
+    {{ HEAD }}
+
+    <!-- 自定义head -->
+
+  </head>
+  <body {{ BODY_ATTRS }}>
+    {{ APP }}
+  </body>
+</html>
+```
+
+## 16 nuxt中内部资源访问
+
+```html
+<!-- 会被打包的资源  assets目录下 -->
+<img src="@/assets/images/111.png" alt="">
+<!-- 不会被打包的静态资源 static目录下 -->
+<img src="/images/222.png" alt="">
+```
 
 
+
+### 访问不压缩的资源

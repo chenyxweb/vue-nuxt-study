@@ -33,6 +33,17 @@
 
       <!-- 自定义指令演示 -->
       <input v-focus type="text">
+
+      <!-- scss 测试 -->
+      <div class="scss">
+        scss
+      </div>
+
+      <!-- 资源访问测试 -->
+      <!-- 会被打包的资源 -->
+      <img src="@/assets/images/111.png" alt="">
+      <!-- 不会被打包的静态资源 -->
+      <img src="/images/222.png" alt="">
     </div>
   </div>
 </template>
@@ -93,20 +104,6 @@ export default {
     console.log('钩子mounted')
   },
 
-  // 页面meta信息
-  head() {
-    return {
-      title: this.title,
-      meta: [
-        {
-          hid: 'description',
-          name: 'desc',
-          content: 'about页面的meta信息'
-        }
-      ]
-    }
-  },
-
   // 方式一: 将中间件定义在middleware文件夹内
   // middleware: 'auth',
 
@@ -130,10 +127,29 @@ export default {
     ...mapMutations('todos', { m_addTodo: 'addTodo' }), // 映射同步的mutations
     ...mapActions('todos', { a_addTodo: 'addTodo' }) // 映射异步的actions
 
+  },
+
+  // 页面meta信息
+  head() {
+    return {
+      title: this.title,
+      meta: [
+        {
+          hid: 'description',
+          name: 'desc',
+          content: 'about页面的meta信息'
+        }
+      ]
+    }
   }
 
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+.about{
+  .scss{
+    color: $gray;
+  }
+}
 </style>
