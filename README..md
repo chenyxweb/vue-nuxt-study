@@ -1314,3 +1314,31 @@ export default Class Demo extends Vue {
 }
 ```
 
+## 18 部署
+
+- 本地 npm run build
+
+- 将 .nuxt, package.json, static 等目录复制到服务器指定目录
+
+- 服务器 npm install  安装依赖
+
+- 服务器 npm run start 启动nuxt服务
+
+```js
+// 可以配置server选项指定nuxt项目运行的服务器地址和端口号
+// nuxt.config.js
+
+export default {
+  server: {
+    port: 8000, 
+    host: '0.0.0.0'
+  },
+}
+
+// nuxt 项目将会运行在  --->  服务器地址:8000
+```
+
+远程连接工具: finallShell
+
+pm2
+

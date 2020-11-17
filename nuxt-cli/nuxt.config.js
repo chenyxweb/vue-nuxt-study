@@ -1,4 +1,9 @@
 export default {
+  // 指定服务器中nuxt项目的主机和端口 (nuxt项目部署后,本身需要开启一个node服务)
+  server: {
+    port: 8000,
+    host: '0.0.0.0'
+  },
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
     title: 'nuxt-cli',
